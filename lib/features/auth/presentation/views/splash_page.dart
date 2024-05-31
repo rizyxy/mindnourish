@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mindnourish/features/auth/presentation/views/login_page.dart';
+import 'package:mindnourish/features/auth/presentation/views/registration/identity_page.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -46,7 +48,12 @@ class SplashPage extends StatelessWidget {
                     ),
                     Material(
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => IdentityPage()));
+                        },
                         child: Ink(
                           padding: EdgeInsets.symmetric(
                               horizontal: 20, vertical: 15),
@@ -79,7 +86,12 @@ class SplashPage extends StatelessWidget {
                         Material(
                           color: Colors.transparent,
                           child: InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginPage()));
+                              },
                               child: Text(
                                 "Log in",
                                 style: TextStyle(
