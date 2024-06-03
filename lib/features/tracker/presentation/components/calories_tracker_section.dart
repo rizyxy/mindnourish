@@ -19,7 +19,6 @@ class CalorieTrackerSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            InactiveSearchBar(),
             SizedBox(
               height: 20,
             ),

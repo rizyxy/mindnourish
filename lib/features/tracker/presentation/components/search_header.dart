@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mindnourish/features/tracker/presentation/components/food_searchbar.dart';
+import 'package:mindnourish/features/tracker/presentation/controller/search_controller.dart';
+import 'package:provider/provider.dart';
 
 class SearchHeader extends StatelessWidget {
   const SearchHeader({
@@ -17,9 +20,19 @@ class SearchHeader extends StatelessWidget {
         child: Column(children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(
-                Icons.arrow_back,
-                size: 20,
+              Material(
+                child: InkWell(
+                  onTap: () {
+                    print(Provider.of<FoodSearchController>(context,
+                            listen: false)
+                        .foods);
+                    print("Hello");
+                  },
+                  child: Icon(
+                    Icons.arrow_back,
+                    size: 20,
+                  ),
+                ),
               ),
               SizedBox(
                 width: 10,
@@ -39,13 +52,7 @@ class SearchHeader extends StatelessWidget {
               decoration: BoxDecoration(
                   color: Color(0xFFECECEC),
                   borderRadius: BorderRadius.circular(15)),
-              child: TextFormField(
-                style: TextStyle(letterSpacing: 1, fontSize: 13),
-                decoration: InputDecoration(
-                    isDense: true,
-                    border: InputBorder.none,
-                    hintText: "Food, drink, brand"),
-              ),
+              child: FoodSearchbar(),
             ),
           )
         ]),
