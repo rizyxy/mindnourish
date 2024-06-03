@@ -3,6 +3,7 @@ import 'package:mindnourish/features/auth/presentation/components/button/main_bu
 import 'package:mindnourish/features/auth/presentation/components/forms/form_component/number_field.dart';
 import 'package:mindnourish/features/auth/presentation/components/progress_bar.dart';
 import 'package:mindnourish/features/auth/presentation/controller/register_controller.dart';
+import 'package:mindnourish/features/auth/presentation/views/splash_page.dart';
 import 'package:mindnourish/utils/const/color_const.dart';
 import 'package:provider/provider.dart';
 
@@ -81,7 +82,12 @@ class GoalWeight extends StatelessWidget {
                         controller.setGoalWeight(
                             double.parse(_goalWeightController.text));
 
-                        controller.test();
+                        controller.register().then((value) =>
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SplashPage()),
+                                (route) => false));
                       }
                     },
                     child: MainButton(

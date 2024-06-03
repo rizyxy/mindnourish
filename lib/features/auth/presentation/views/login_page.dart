@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mindnourish/features/auth/presentation/components/button/main_button.dart';
 import 'package:mindnourish/features/auth/presentation/components/forms/login_form.dart';
+import 'package:mindnourish/features/tracker/presentation/views/home_page.dart';
 import 'package:mindnourish/utils/const/color_const.dart';
 
 class LoginPage extends StatelessWidget {
@@ -60,10 +61,11 @@ class LoginPage extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    if (_formKey.currentState!.validate()) {}
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomePage()));
                   },
                   child: MainButton(
-                    actionText: "Register",
+                    actionText: "Login",
                   ),
                 )
               ],

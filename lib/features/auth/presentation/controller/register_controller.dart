@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/material.dart';
+import 'package:mindnourish/features/auth/domain/user.dart';
 
 class RegisterController extends ChangeNotifier {
   String? _name;
@@ -87,16 +90,26 @@ class RegisterController extends ChangeNotifier {
   List<String> _genders = ["Male", "Female"];
   List<String> get genders => _genders;
 
-  void test() {
-    print("Name : $name");
-    print("Email : $email");
-    print("Phone : $phone");
-    print("Password : $password");
-    print("Disease : $disease");
-    print("Gender : $gender");
-    print("Birthdate : ${birthdate.toString()}");
-    print("Height : $height");
-    print("Weight : $weight");
-    print("Goal Weight : $goalWeight");
+  Future<void> register() async {
+    await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email!, password: password!)
+        .then((value) {
+      User user = User(
+          uid: value.user!.uid,
+          name: name!,
+          email: email!,
+          phone: phone!,
+          disease: disease!,
+          gender: gender!,
+          birthdate: birthdate!,
+          height: height!,
+          weight: weight!,
+          goalWeight: goalWeight!);
+
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .set(user.toMap());
+    });
   }
 }

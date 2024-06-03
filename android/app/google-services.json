@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "635710950783",
+    "project_id": "mindnourish",
+    "storage_bucket": "mindnourish.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:635710950783:android:c83a7170f30fc0279e5e4a",
+        "android_client_info": {
+          "package_name": "com.example.mindnourish"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwOcsOPrSJUBKc0KTw09JFxYoJg036gxo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
