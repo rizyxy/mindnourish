@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class EntryDateSelector extends StatelessWidget {
   const EntryDateSelector({
@@ -19,7 +20,7 @@ class EntryDateSelector extends StatelessWidget {
           width: 5,
         ),
         Text(
-          "TODAY, 17 MARCH 2024",
+          "TODAY, ${DateFormat('d MMMM yyyy').format(DateTime.now()).toUpperCase()}",
           style: TextStyle(color: Color(0xFF2E4C66), letterSpacing: 1),
         ),
       ],

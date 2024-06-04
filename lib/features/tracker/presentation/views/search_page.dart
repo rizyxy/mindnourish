@@ -5,7 +5,9 @@ import 'package:mindnourish/features/tracker/presentation/components/search_head
 import 'package:mindnourish/utils/const/color_const.dart';
 
 class SearchPage extends StatelessWidget {
-  const SearchPage({super.key});
+  const SearchPage({super.key, required this.entry});
+
+  final String entry;
 
   @override
   Widget build(BuildContext context) {
@@ -14,10 +16,14 @@ class SearchPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          SearchHeader(),
+          SearchHeader(
+            entry: entry,
+          ),
           Padding(
             padding: EdgeInsets.all(30),
-            child: FoodCards(),
+            child: FoodCards(
+              entry: entry,
+            ),
           )
         ],
       ),

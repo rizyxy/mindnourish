@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:mindnourish/features/tracker/presentation/components/calories_tracker_section.dart';
 
 class EntryDetailHeader extends StatelessWidget {
-  const EntryDetailHeader({
-    super.key,
-  });
+  const EntryDetailHeader({super.key, required this.entry});
+
+  final String entry;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,9 @@ class EntryDetailHeader extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          InactiveSearchBar()
+          InactiveSearchBar(
+            entry: entry,
+          )
         ]),
       )),
     );

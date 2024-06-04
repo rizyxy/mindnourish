@@ -3,9 +3,13 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class MacroProgressBar extends StatelessWidget {
   MacroProgressBar(
-      {super.key, required this.macroName, required this.macroGoal});
+      {super.key,
+      required this.macroName,
+      required this.current,
+      required this.macroGoal});
 
   final String macroName;
+  final double current;
   final double macroGoal;
 
   @override
@@ -22,12 +26,14 @@ class MacroProgressBar extends StatelessWidget {
         ),
         LinearPercentIndicator(
           lineHeight: 3,
+          percent: current / macroGoal > 1 ? 1 : current / macroGoal,
           backgroundColor: Colors.grey.shade300,
         ),
         SizedBox(
           height: 10,
         ),
-        Text("0 / ${macroGoal.toString()}g", style: TextStyle(fontSize: 12))
+        Text("${current.toString()} / ${macroGoal.toString()}g",
+            style: TextStyle(fontSize: 12))
       ],
     );
   }

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mindnourish/features/tracker/presentation/controller/recommendation_controller.dart';
+import 'package:mindnourish/features/tracker/presentation/controller/tracker_controller.dart';
+import 'package:mindnourish/features/tracker/presentation/controller/water_tracker_controller.dart';
 import 'package:mindnourish/features/tracker/presentation/views/search_page.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:provider/provider.dart';
 
 class CalorieTrackerSection extends StatelessWidget {
   const CalorieTrackerSection({
@@ -24,80 +28,95 @@ class CalorieTrackerSection extends StatelessWidget {
             ),
             Row(
               children: <Widget>[
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Text(
-                        "0",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "FOOD EATEN",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white, letterSpacing: 1),
-                      )
-                    ],
+                Consumer<TrackerController>(
+                  builder: (context, controller, _) => Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        Text(
+                          controller.getCombinedEntry()!.length.toString(),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "FOOD EATEN",
+                          textAlign: TextAlign.center,
+                          style:
+                              TextStyle(color: Colors.white, letterSpacing: 1),
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(
                   width: 10,
                 ),
-                CircularPercentIndicator(
-                  radius: 80,
-                  center: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "2850",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "KCAL LEFT",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white, letterSpacing: 1),
-                      )
-                    ],
+                Consumer2<RecommendationController, TrackerController>(
+                  builder: (context, recommendationController,
+                          trackerController, _) =>
+                      CircularPercentIndicator(
+                    radius: 80,
+                    percent: trackerController.getTotalCalories()! /
+                        recommendationController.caloriesRecommendation!,
+                    center: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          (recommendationController.caloriesRecommendation! -
+                                  trackerController.getTotalCalories()!)
+                              .toString(),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 28,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "KCAL LEFT",
+                          textAlign: TextAlign.center,
+                          style:
+                              TextStyle(color: Colors.white, letterSpacing: 1),
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(
                   width: 10,
                 ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Text(
-                        "0",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "GLASS DRANK",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white, letterSpacing: 1),
-                      )
-                    ],
+                Consumer<WaterTrackerController>(
+                  builder: (context, controller, _) => Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        Text(
+                          controller.litre!.round().toString(),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "LITRE DRANK",
+                          textAlign: TextAlign.center,
+                          style:
+                              TextStyle(color: Colors.white, letterSpacing: 1),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -110,9 +129,9 @@ class CalorieTrackerSection extends StatelessWidget {
 }
 
 class InactiveSearchBar extends StatelessWidget {
-  const InactiveSearchBar({
-    super.key,
-  });
+  const InactiveSearchBar({super.key, required this.entry});
+
+  final String entry;
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +140,11 @@ class InactiveSearchBar extends StatelessWidget {
       child: InkWell(
         onTap: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => SearchPage()));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => SearchPage(
+                        entry: entry,
+                      )));
         },
         child: Ink(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),

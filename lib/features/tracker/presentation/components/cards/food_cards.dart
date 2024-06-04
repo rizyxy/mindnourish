@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mindnourish/features/tracker/presentation/components/cards/card/food_card.dart';
 import 'package:mindnourish/features/tracker/presentation/controller/search_controller.dart';
+import 'package:mindnourish/features/tracker/presentation/controller/tracker_controller.dart';
 import 'package:provider/provider.dart';
 
 class FoodCards extends StatefulWidget {
-  const FoodCards({
-    super.key,
-  });
+  const FoodCards({super.key, required this.entry});
+
+  final String entry;
 
   @override
   State<FoodCards> createState() => _FoodCardsState();
@@ -26,8 +27,9 @@ class _FoodCardsState extends State<FoodCards> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Consumer<FoodSearchController>(builder: (context, controller, _) {
-        if (controller.foods == null) {
+      child: Consumer2<FoodSearchController, TrackerController>(
+          builder: (context, searchController, trackerController, _) {
+        if (searchController.foods == null) {
           return Text(
             "No Food",
             textAlign: TextAlign.center,
@@ -35,11 +37,20 @@ class _FoodCardsState extends State<FoodCards> {
         }
 
         return Column(
-            children: controller.foods!
+            children: searchController.foods!
                 .where((element) =>
-                    element.name.contains(controller.searchQuery ?? ""))
+                    element.name.contains(searchController.searchQuery ?? ""))
                 .toList()
-                .map((e) => FoodCard())
+                .map((e) => InkWell(
+                      onTap: () async {
+                        await trackerController.addEntry(widget.entry, e);
+
+                        Navigator.pop(context);
+                      },
+                      child: FoodCard(
+                        food: e,
+                      ),
+                    ))
                 .toList());
       }),
     );

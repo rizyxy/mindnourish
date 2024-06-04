@@ -14,8 +14,12 @@ class EntrySelector extends StatelessWidget {
       children: <Widget>[
         InkWell(
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => EntryDetailPage()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EntryDetailPage(
+                          entry: 'Breakfast',
+                        )));
           },
           child: EntrySelectorCard(
               label: "Breakfast", iconPath: "assets/breakfast_icon.png"),
@@ -23,15 +27,45 @@ class EntrySelector extends StatelessWidget {
         SizedBox(
           height: 20,
         ),
-        EntrySelectorCard(label: "Lunch", iconPath: "assets/lunch_icon.png"),
+        InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => EntryDetailPage(
+                            entry: 'Lunch',
+                          )));
+            },
+            child: EntrySelectorCard(
+                label: "Lunch", iconPath: "assets/lunch_icon.png")),
         SizedBox(
           height: 20,
         ),
-        EntrySelectorCard(label: "Dinner", iconPath: "assets/dinner_icon.png"),
+        InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => EntryDetailPage(
+                            entry: 'Dinner',
+                          )));
+            },
+            child: EntrySelectorCard(
+                label: "Dinner", iconPath: "assets/dinner_icon.png")),
         SizedBox(
           height: 20,
         ),
-        EntrySelectorCard(label: "Snack", iconPath: "assets/snack_icon.png")
+        InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => EntryDetailPage(
+                            entry: 'Snack',
+                          )));
+            },
+            child: EntrySelectorCard(
+                label: "Snack", iconPath: "assets/snack_icon.png"))
       ],
     );
   }

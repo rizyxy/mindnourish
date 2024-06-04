@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mindnourish/features/tracker/domain/food.dart';
 
 class FoodCard extends StatelessWidget {
-  const FoodCard({
-    super.key,
-  });
+  const FoodCard({super.key, required this.food});
+
+  final Food food;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class FoodCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text("Onigiri Salmon (180 Kcal)"),
+          Text("${food.name} (${food.calories} Kcal)"),
           Icon(Icons.add_circle_outline)
         ],
       ),

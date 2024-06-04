@@ -1,8 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mindnourish/features/auth/presentation/components/button/main_button.dart';
 import 'package:mindnourish/features/auth/presentation/components/forms/login_form.dart';
+import 'package:mindnourish/features/tracker/presentation/controller/recommendation_controller.dart';
+import 'package:mindnourish/features/tracker/presentation/controller/tracker_controller.dart';
+import 'package:mindnourish/features/tracker/presentation/controller/water_tracker_controller.dart';
 import 'package:mindnourish/features/tracker/presentation/views/home_page.dart';
 import 'package:mindnourish/utils/const/color_const.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -61,8 +66,30 @@ class LoginPage extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomePage()));
+                    if (_formKey.currentState!.validate()) {
+                      FirebaseAuth.instance
+                          .signInWithEmailAndPassword(
+                              email: _emailController.text,
+                              password: _passwordController.text)
+                          .then((value) async {
+                        await Provider.of<RecommendationController>(context,
+                                listen: false)
+                            .fetchRecommendation();
+
+                        await Provider.of<WaterTrackerController>(context,
+                                listen: false)
+                            .fetchWaterLitre();
+
+                        await Provider.of<TrackerController>(context,
+                                listen: false)
+                            .fetchFood();
+
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomePage()));
+                      });
+                    }
                   },
                   child: MainButton(
                     actionText: "Login",

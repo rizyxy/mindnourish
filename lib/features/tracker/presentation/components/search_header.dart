@@ -4,9 +4,9 @@ import 'package:mindnourish/features/tracker/presentation/controller/search_cont
 import 'package:provider/provider.dart';
 
 class SearchHeader extends StatelessWidget {
-  const SearchHeader({
-    super.key,
-  });
+  const SearchHeader({super.key, required this.entry});
+
+  final String entry;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class SearchHeader extends StatelessWidget {
                 width: 10,
               ),
               Text(
-                "Breakfast",
+                entry,
                 style: TextStyle(fontSize: 17),
               )
             ],
