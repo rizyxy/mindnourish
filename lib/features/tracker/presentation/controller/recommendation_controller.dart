@@ -27,6 +27,18 @@ class RecommendationController extends ChangeNotifier {
   Map<String, dynamic>? _snackRecommendation;
   Map<String, dynamic>? get snackRecommendation => _snackRecommendation;
 
+  void clear() {
+    _caloriesRecommendation = null;
+    _carbsRecommendation = null;
+    _proteinRecommendation = null;
+    _fatRecommendation = null;
+    _breakfastRecommendation = null;
+    _lunchRecommendation = null;
+    _dinnerRecommendation = null;
+    _snackRecommendation = null;
+    notifyListeners();
+  }
+
   bool recommendationExists() {
     if (_caloriesRecommendation != null) {
       if (_carbsRecommendation != null) {

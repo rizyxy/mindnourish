@@ -90,10 +90,24 @@ class RegisterController extends ChangeNotifier {
   List<String> _genders = ["Male", "Female"];
   List<String> get genders => _genders;
 
+  void clear() {
+    _name = null;
+    _email = null;
+    _phone = null;
+    _password = null;
+    _birthdate = null;
+    _disease = null;
+    _gender = null;
+    _height = null;
+    _weight = null;
+    _goalWeight = null;
+    notifyListeners();
+  }
+
   Future<void> register() async {
     await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email!, password: password!)
-        .then((value) {
+        .then((value) async {
       User user = User(
           uid: value.user!.uid,
           name: name!,
@@ -106,10 +120,12 @@ class RegisterController extends ChangeNotifier {
           weight: weight!,
           goalWeight: goalWeight!);
 
-      FirebaseFirestore.instance
+      await FirebaseFirestore.instance
           .collection('users')
           .doc(user.uid)
           .set(user.toMap());
+
+      clear();
     });
   }
 }

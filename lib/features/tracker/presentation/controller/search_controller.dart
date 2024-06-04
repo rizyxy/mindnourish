@@ -36,4 +36,11 @@ class FoodSearchController extends ChangeNotifier {
     _searchQuery = searchQuery;
     notifyListeners();
   }
+
+  void clear() {
+    _entryType = null;
+    _foods = null;
+    _searchQuery = null;
+    notifyListeners();
+  }
 }

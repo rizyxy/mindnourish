@@ -17,6 +17,14 @@ class TrackerController extends ChangeNotifier {
   List<Food>? _snack;
   List<Food>? get snack => _snack;
 
+  void clear() {
+    _breakfast = null;
+    _lunch = null;
+    _dinner = null;
+    _snack = null;
+    notifyListeners();
+  }
+
   double? getCalories(String entry) {
     double? temp;
 

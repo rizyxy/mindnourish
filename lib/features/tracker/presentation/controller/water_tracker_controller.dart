@@ -10,6 +10,12 @@ class WaterTrackerController extends ChangeNotifier {
   String? _waterId;
   String? get waterId => _waterId;
 
+  void clear() {
+    _litre = null;
+    _waterId = null;
+    notifyListeners();
+  }
+
   Future<void> setWater(double litre) async {
     if (_litre == null || _waterId == null) {
       FirebaseFirestore.instance
